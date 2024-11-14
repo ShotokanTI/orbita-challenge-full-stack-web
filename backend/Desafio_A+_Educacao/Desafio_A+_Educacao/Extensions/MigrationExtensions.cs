@@ -1,4 +1,4 @@
-﻿using Desafio_A__Educacao.Data;
+﻿using Infra.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace Desafio_A__Educacao.Extensions

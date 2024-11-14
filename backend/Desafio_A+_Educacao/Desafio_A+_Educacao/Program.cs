@@ -1,12 +1,15 @@
-using Desafio_A__Educacao.Data;
+using Infra.Context;
+using Infrastructure.IoC;
 using Desafio_A__Educacao.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<AppDbContext>(options => 
+builder.Services.AddDbContext<AppDbContext>(options =>
 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+DependencyContainer.RegisterServices(builder.Services);
 
 builder.Services.AddControllers();
 
@@ -18,6 +21,12 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    context.Database.EnsureDeleted();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -25,6 +34,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.ApplyMigrations();
 }
+
 
 app.UseHttpsRedirection();
 
