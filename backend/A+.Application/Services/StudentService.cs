@@ -23,7 +23,7 @@ namespace Application.Services
             int skip = (page.PageNumber - 1) * page.PageSize;
             int take = page.PageSize;
 
-            var (totalItems,items) = await _StudentRepository.GetAllPaginetedAsync(page.PageNumber,page.PageSize);
+            var (totalItems,items) = await _StudentRepository.GetAllPaginetedAsync(page.PageNumber,page.PageSize,page.Search);
 
             var entityMapped = _mapper.Map<IEnumerable<StudentDTO>>(items);
 
@@ -43,10 +43,8 @@ namespace Application.Services
             return _StudentRepository.CreateAsync(entity);
         }
 
-        public async Task UpdateStudentAsync(string ra,StudentDTO studentVM)
+        public async Task UpdateStudentAsync(StudentDTO studentVM)
         {
-
-            var entity = await _StudentRepository.GetByRaAsync(ra);
 
             var result = _mapper.Map<Student>(studentVM);
 

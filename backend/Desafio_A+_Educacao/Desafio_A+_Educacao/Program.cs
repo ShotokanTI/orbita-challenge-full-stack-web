@@ -13,6 +13,8 @@ DependencyContainer.RegisterServices(builder.Services);
 
 builder.Services.AddControllers();
 
+builder.Services.ApplyCors();
+
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -35,6 +37,8 @@ if (app.Environment.IsDevelopment())
     app.ApplyMigrations();
 }
 
+
+app.UseCors("AllowOnlySomeOrigins");
 
 app.UseHttpsRedirection();
 

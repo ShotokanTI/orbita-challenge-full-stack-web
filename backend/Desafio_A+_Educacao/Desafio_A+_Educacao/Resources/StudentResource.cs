@@ -39,10 +39,10 @@ namespace Desafio_A__Educacao.Resources
             return CreatedAtAction(nameof(GetById), new { id = Student.RA }, Student);
         }
 
-        [HttpPut("{ra}")]
-        public async Task<IActionResult> Update(string ra, StudentDTO Student)
+        [HttpPut]
+        public async Task<IActionResult> Update(StudentDTO Student)
         {
-            await _StudentService.UpdateStudentAsync(ra,Student);
+            await _StudentService.UpdateStudentAsync(Student);
             return NoContent();
         }
 

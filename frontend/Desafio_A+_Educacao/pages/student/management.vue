@@ -1,7 +1,5 @@
 <template>
    <div>
-      <StudentContainer>
-         <StudentList></StudentList>
-      </StudentContainer>
+      <StudentContainer />
    </div>
 </template>

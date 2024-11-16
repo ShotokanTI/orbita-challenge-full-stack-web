@@ -13,7 +13,7 @@ namespace Application.Interfaces
         Task<PageResult<StudentDTO>> GetStudentsPaginatedAsync(PageRequest pageRequest);
         Task<StudentDTO> GetStudentByRaAsync(string ra);
         Task AddStudentAsync(StudentDTO student);
-        Task UpdateStudentAsync(string ra, StudentDTO student);
+        Task UpdateStudentAsync(StudentDTO student);
         Task DeleteStudentAsync(string ra);
     }
 }

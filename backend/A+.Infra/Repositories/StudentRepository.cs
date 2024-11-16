@@ -2,6 +2,7 @@
 using Desafio_A__Educacao.Domain.Entities;
 using Desafio_A__Educacao.Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Text.RegularExpressions;
 
 public class StudentRepository : IStudentRepository
 {
@@ -28,11 +29,15 @@ public class StudentRepository : IStudentRepository
         }
     }
 
-    public async Task<(int totalItems, IEnumerable<Student> items)> GetAllPaginetedAsync(int skip, int take)
+    public async Task<(int totalItems, IEnumerable<Student> items)> GetAllPaginetedAsync(int skip, int take,string search)
     {
-        var totalItems = _context.Students.Count();
-        var items = await _context.Students.Skip((skip - 1) * take).Take(take).ToListAsync();
-        return (totalItems, items);
+        var items = _context.Students
+            .AsQueryable()
+            .Where(a => a.RA.Contains(search))
+            .Skip((skip - 1) * take)
+            .Take(take);
+        
+        return (string.IsNullOrEmpty(search) ? _context.Students.Count() : items.Count(), await items.ToListAsync());
     }
 
     public async Task<Student> GetByRaAsync(string ra)

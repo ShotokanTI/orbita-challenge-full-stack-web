@@ -13,6 +13,8 @@ namespace Application.ViewModels
         public int PageNumber { get; set; }
         [DefaultValue(25)]
         public int PageSize { get; set; }
+        [DefaultValue("")]
+        public string Search { get; set; } = string.Empty;
     }
 
 }

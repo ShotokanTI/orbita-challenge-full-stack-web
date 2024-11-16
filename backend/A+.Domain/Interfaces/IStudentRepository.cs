@@ -4,7 +4,7 @@ namespace Desafio_A__Educacao.Domain.Interfaces
 {
     public interface IStudentRepository
     {
-        Task<(int totalItems, IEnumerable<Student> items)> GetAllPaginetedAsync(int skip,int take);
+        Task<(int totalItems, IEnumerable<Student> items)> GetAllPaginetedAsync(int skip,int take,string search);
         Task<Student> GetByRaAsync(string id);
         Task CreateAsync(Student entity);
         Task UpdateAsync(Student entity);
